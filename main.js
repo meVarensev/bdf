@@ -3,17 +3,17 @@ const app = express()
 const port = 3000
 
 
-const url = 'mongodb://localhost:27017/main'; // урл для сервиса с mongodb
-const {MongoClient} = require('mongodb'); // конструктор клиентов mongodb
-const client = new MongoClient(url); // создаем новый клиент для работы с базой
-client.connect(); // подключаемся к базе
+const url = 'mongodb://localhost:27017/main';
+const {MongoClient} = require('mongodb');
+const client = new MongoClient(url);
+client.connect();
 
 app.use(express.json());
 
 
 app.post('/movies', async (req, res) => {
-    await client.db("main").collection("movies").insertOne(req.body); // добавляем документ
-    return res.status(201).send('movie created'); // возвращаем ответ
+    await client.db("main").collection("movies").insertOne(req.body);
+    return res.status(201).send('movie created');
 });
 
 app.listen(port, () => {
