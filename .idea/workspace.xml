@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8423655-dd74-47da-8676-185b4a5bc540" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.prettierrc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schema.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
@@ -70,7 +74,7 @@
       <workItem from="1700848997872" duration="32000" />
       <workItem from="1700853624439" duration="7481000" />
       <workItem from="1701003437976" duration="2339000" />
-      <workItem from="1701077608933" duration="3756000" />
+      <workItem from="1701077608933" duration="4347000" />
     </task>
     <servers />
   </component>
