@@ -1,41 +1,56 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import mongoose from 'mongoose';
+import { Category, Movie, Movies } from './models.js';
 
 const url = 'mongodb://localhost:27017/main';
-const {MongoClient} = require('mongodb');
-const client = new MongoClient(url);
 
-app.use(express.json());
-
-const postDb = (name) => {
-    app.post(`/${name}`, async (req, res) => {
-        try {
-            await client.connect();
-
-            const database = client.db("main");
-            const collection = database.collection(name);
-
-            await collection.insertOne(req.body);
-
-            return res.status(201).send(`${name} created`);
-        } catch (error) {
-            console.error('Error:', error);
-            return res.status(500).send('Internal Server Error');
-        } finally {
-            await client.close();
-        }
+mongoose
+    .connect(url)
+    .then(() => {
+        console.log('MongoDB connected successfully');
+    })
+    .catch((err) => {
+        console.error('Error connecting to MongoDB:', err);
     });
-}
 
-postDb("movies")
-postDb("categories")
+await Movie.create({
+    title: 'Matrix',
+    year: 1999,
+    rating: 2,
+});
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+await Movies.create({
+    title: 'dsad',
+    category: 'dsad',
+    year: 'dsad',
+    duration: 'dsad',
+});
 
+await Category.create({
+    title: 'sdasdas',
+});
 
+// const postDb = (name) => {
+//     app.post(`/${name}`, async (req, res) => {
+//         try {
+//             await client.connect();
+//
+//             const database = client.db("main");
+//             const collection = database.collection(name);
+//
+//             await collection.insertOne(req.body);
+//
+//             return res.status(201).send(`${name} created`);
+//         } catch (error) {
+//             console.error('Error:', error);
+//             return res.status(500).send('Internal Server Error');
+//         } finally {
+//             await client.close();
+//         }
+//     });
+// }
+//
+// postDb("movies")
+// postDb("categories")
 
 // const MOVIES = [{
 //     _id: 1,
