@@ -5,12 +5,14 @@
     "mongoose": "^8.0.1"
   },
   "scripts": {
-    "dev": "nodemon main.js"
+    "dev": "nodemon main.js",
+    "lint": "eslint --fix --ext ."
   },
   "type": "module",
   "devDependencies": {
     "eslint": "^8.54.0",
-    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "9.0.0",
     "eslint-plugin-import": "^2.29.0",
     "prettier": "3.1.0"
   }
