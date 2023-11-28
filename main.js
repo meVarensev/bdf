@@ -1,13 +1,32 @@
 import mongoose from 'mongoose';
 import express from 'express';
-import { Category, Movie, Movies } from './models.js';
-
-const url = 'mongodb://localhost:27017/main';
+import cors from 'cors';
+import { Category, Movie } from './models.js';
+import { allowedOrigins, API } from './constants.js';
 
 const app = express();
-const port = 3002;
+const router = express.Router();
+
 app.use(express.json());
-app.get('/main/movie', async (req, res) => {
+app.use('/', router);
+app.use(
+    cors({
+        origin: allowedOrigins,
+    })
+);
+mongoose
+    .connect(API.URL)
+    .then(() => {
+        console.log('MongoDB connected successfully');
+        app.listen(API.PORT, () => {
+            console.log(`Server is running at http://localhost:${API.PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error('Error connecting to MongoDB:', err);
+    });
+
+router.get('/movie', async (req, res) => {
     try {
         const movie = await Movie.find();
         res.json(movie);
@@ -17,7 +36,7 @@ app.get('/main/movie', async (req, res) => {
     }
 });
 
-app.get('/main/categories', async (req, res) => {
+router.get('/categories', async (req, res) => {
     try {
         const category = await Category.find();
         res.json(category);
@@ -27,7 +46,7 @@ app.get('/main/categories', async (req, res) => {
     }
 });
 
-app.post('/main/movie', async (req, res) => {
+router.post('/movie', async (req, res) => {
     try {
         const { title, year, rating, category } = req.body;
 
@@ -45,21 +64,21 @@ app.post('/main/movie', async (req, res) => {
     }
 });
 
-mongoose
-    .connect(url)
-    .then(() => {
-        console.log('MongoDB connected successfully');
-        app.listen(port, () => {
-            console.log(`Server is running at http://localhost:${port}`);
-        });
-    })
-    .catch((err) => {
-        console.error('Error connecting to MongoDB:', err);
+app.delete('/movie', (req, res) => {
+    res.json({
+        text: 'Requests are working. [DELETE]',
     });
-
-await Category.create({
-    title: 'Боевик',
 });
+
+app.put('/movie', (req, res) => {
+    res.json({
+        text: 'Requests are working. [PUT]',
+    });
+});
+
+// await Category.create({
+//     title: 'Боевик',
+// });
 
 // await Movie.create({
 //     title: 'Matrix',
