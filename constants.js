@@ -3,4 +3,8 @@ export const API = {
     PORT: 3007,
 };
 
-export const allowedOrigins = [`http://localhost:${API.PORT}`];
+const allowedOrigins = [`http://localhost:${API.PORT}`];
+
+export const CORS_OPTIONS = {
+    origin: allowedOrigins,
+};

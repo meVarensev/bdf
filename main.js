@@ -2,18 +2,14 @@ import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
 import { Category, Movie } from './models.js';
-import { allowedOrigins, API } from './constants.js';
+import { API, CORS_OPTIONS } from './constants.js';
 
 const app = express();
 const router = express.Router();
 
 app.use(express.json());
 app.use('/', router);
-app.use(
-    cors({
-        origin: allowedOrigins,
-    })
-);
+app.use(cors(CORS_OPTIONS));
 mongoose
     .connect(API.URL)
     .then(() => {
