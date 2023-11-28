@@ -9,7 +9,6 @@ export const MovieSchema = new mongoose.Schema(
             type: 'ObjectId',
             ref: 'Category',
         },
-        directorrr: { type: 'ObjectId', ref: 'Category' },
     },
     { collection: 'movie' }
 );
