@@ -8,7 +8,7 @@
     "dev": "nodemon main.js",
     "lint": "eslint --fix --ext ."
   },
-  "type": "module",
+
   "devDependencies": {
     "eslint": "^8.54.0",
     "eslint-config-airbnb": "^19.0.4",
