@@ -7,7 +7,7 @@ export const MovieSchema = new mongoose.Schema(
         rating: Number,
         category: {
             type: 'ObjectId',
-            ref: 'Categories',
+            ref: 'Category',
         },
     },
     { collection: 'movie' }
