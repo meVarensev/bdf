@@ -25,7 +25,7 @@ mongoose
 router.get('/movie', async (req, res) => {
     try {
         const movie = await Movie.find();
-        res.json(movie);
+        return res.status(201).json(movie);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -35,7 +35,7 @@ router.get('/movie', async (req, res) => {
 router.get('/categories', async (req, res) => {
     try {
         const category = await Category.find();
-        res.json(category);
+        return res.status(201).json(category);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -60,17 +60,42 @@ router.post('/movie', async (req, res) => {
     }
 });
 
-app.delete('/movie', (req, res) => {
-    res.json({
-        text: 'Requests are working. [DELETE]',
-    });
+app.delete('/movie/:_id', async (req, res) => {
+    try {
+        const { _id } = req.params;
+
+        const deletedMovie = await Movie.findOneAndDelete({ _id });
+
+        res.json({
+            text: 'Requests are working. [DELETE]',
+            deletedMovie,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
-app.put('/movie', (req, res) => {
-    res.json({
-        text: 'Requests are working. [PUT]',
-    });
+app.put('/movie/:_id', async (req, res) => {
+    try {
+        const { _id } = req.params;
+        const { title, otherReq } = req.body;
+        const updatedMovie = await Movie.findByIdAndUpdate(
+            _id,
+            { title, ...otherReq },
+            { new: true }
+        );
+
+        res.json({
+            text: 'Requests are working. [PUT]',
+            updatedMovie,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
+// TODO: in progress Добавить эндпоинт с логикой для добавления комментариев для фильма
 
 // await Category.create({
 //     title: 'Боевик',
