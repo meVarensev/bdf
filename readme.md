@@ -1,5 +1,6 @@
-# BDF
-
+# BFF2
+Привет!
+---
 ## Установка Eslint
 
 - `npm init @eslint/config`

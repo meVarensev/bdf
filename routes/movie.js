@@ -1,26 +1,10 @@
-import mongoose from 'mongoose';
 import express from 'express';
-import cors from 'cors';
-import { Category, Movie } from './models.js';
-import { API, CORS_OPTIONS } from './constants.js';
 
-const app = express();
+import { createMovie } from '../services/movie-service.js';
+import { Category } from '../models/category.js';
+import { Movie } from '../models/movie.js';
+
 const router = express.Router();
-
-app.use(express.json());
-app.use('/', router);
-app.use(cors(CORS_OPTIONS));
-mongoose
-    .connect(API.URL)
-    .then(() => {
-        console.log('MongoDB connected successfully');
-        app.listen(API.PORT, () => {
-            console.log(`Server is running at http://localhost:${API.PORT}`);
-        });
-    })
-    .catch((err) => {
-        console.error('Error connecting to MongoDB:', err);
-    });
 
 router.get('/movie', async (req, res) => {
     try {
@@ -42,11 +26,11 @@ router.get('/categories', async (req, res) => {
     }
 });
 
-router.post('/movie', async (req, res) => {
+router.post('/movie', (req, res) => {
     try {
         const { title, year, rating, category } = req.body;
 
-        const movie = await Movie.create({
+        const movie = createMovie({
             title,
             year,
             rating,
@@ -60,7 +44,7 @@ router.post('/movie', async (req, res) => {
     }
 });
 
-app.delete('/movie/:_id', async (req, res) => {
+router.delete('/movie/:_id', async (req, res) => {
     try {
         const { _id } = req.params;
 
@@ -76,7 +60,7 @@ app.delete('/movie/:_id', async (req, res) => {
     }
 });
 
-app.put('/movie/:_id', async (req, res) => {
+router.put('/movie/:_id', async (req, res) => {
     try {
         const { _id } = req.params;
         const { title, otherReq } = req.body;
@@ -95,21 +79,5 @@ app.put('/movie/:_id', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-// TODO: in progress Добавить эндпоинт с логикой для добавления комментариев для фильма
 
-// await Category.create({
-//     title: 'Боевик',
-// });
-
-// await Movie.create({
-//     title: 'Matrix',
-//     year: 1999,
-//     rating: 2,
-// });
-//
-// await Movies.create({
-//     title: 'dsad',
-//     category: 'dsad',
-//     year: 'dsad',
-//     duration: 'dsad',
-// });
+export default router;

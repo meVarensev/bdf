@@ -6,7 +6,7 @@
     "mongoose": "^8.0.1"
   },
   "scripts": {
-    "dev": "nodemon main.js",
+    "dev": "nodemon app.js",
     "lint": "eslint --fix  ."
   },
   "type": "module",
